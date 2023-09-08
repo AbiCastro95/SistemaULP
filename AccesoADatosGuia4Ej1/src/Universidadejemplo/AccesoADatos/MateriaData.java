@@ -1,14 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Universidadejemplo.AccesoADatos;
 
-/**
- *
- * @author Glori
- */
+import Universidadejemplo.Entidades.Materia;
+import java.sql.Connection;
+import java.util.List;
+
 public class MateriaData {
+    private Connection con;
+
+    public MateriaData() {
+    }
     
+    public void guardarMateria(Materia materia){
+        
+    }
+    
+    public Materia buscarMateriaPorId(int id){
+        return null;
+    }
+    
+    public void modificarMateria(Materia materia){
+        
+    }
+    
+    public void eliminarMateria(int id){
+        
+    }
+    
+    public List<Materia> listarMateria(){
+        return null;
+    }
+
 }

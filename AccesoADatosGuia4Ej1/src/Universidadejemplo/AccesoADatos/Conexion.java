@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Universidadejemplo.AccesoADatos;
 
 import java.sql.Connection;
@@ -10,16 +6,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Glori
- */
 public class Conexion {
-    private static final String URL="jdbc:mysql://localhost/universidad";
+    private static final String URL="jdbc:mysql://localhost/";
     private static final String DB="universidad";
     private static final String USUARIO="root";
-    private static final String password="";
-    private static Conexion conexion=null;
+    private static final String PASSWORD="";
+    private static Conexion conexion;
     
      private Conexion() {
         try {
@@ -37,7 +29,7 @@ public class Conexion {
         }
         try {
             // Setup the connection with the DB
-            con = DriverManager.getConnection(URL + "?useLegacyDatetimeCode=false&serverTimezone=UTC" + "&user=" + USUARIO + "&password=" + password);
+            con = DriverManager.getConnection(URL + DB + "?useLegacyDatetimeCode=false&serverTimezone=UTC" + "&user=" + USUARIO + "&password=" + PASSWORD);
             
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de conexion ");
