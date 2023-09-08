@@ -15,11 +15,10 @@ import javax.swing.JOptionPane;
  * @author Glori
  */
 public class Conexion {
-    private static String url="jdbc:mysql://localhost/universidad";
-    private static String usuario="root";
-    private static String password="";
-
-   
+    private static final String URL="jdbc:mysql://localhost/universidad";
+    private static final String DB="universidad";
+    private static final String USUARIO="root";
+    private static final String password="";
     private static Conexion conexion=null;
     
      private Conexion() {
@@ -30,18 +29,15 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, "Clase Conexion: Error al cargar Driver");
         }
     }
-
-
     
     public static Connection getConexion() {
         Connection con=null;//Si es la primera conexion
-      if(conexion == null){
-          
-           conexion= new Conexion();
+        if(conexion == null){
+           conexion = new Conexion();
         }
         try {
             // Setup the connection with the DB
-            con = DriverManager.getConnection(url + "?useLegacyDatetimeCode=false&serverTimezone=UTC" + "&user=" + usuario + "&password=" + password);
+            con = DriverManager.getConnection(URL + "?useLegacyDatetimeCode=false&serverTimezone=UTC" + "&user=" + USUARIO + "&password=" + password);
             
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de conexion ");
