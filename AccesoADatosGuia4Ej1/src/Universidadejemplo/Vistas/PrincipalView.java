@@ -42,6 +42,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema ULP");
+        setPreferredSize(new java.awt.Dimension(600, 800));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -116,6 +117,12 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void jMenuItemFormAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFormAlumnoActionPerformed
         // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GestionAlumnos gestionAlumnos = new GestionAlumnos();
+        gestionAlumnos.setVisible(true);
+        jDesktopPane1.add(gestionAlumnos);
+        jDesktopPane1.moveToFront(gestionAlumnos);
     }//GEN-LAST:event_jMenuItemFormAlumnoActionPerformed
 
     private void jMenuItemFormMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFormMatActionPerformed

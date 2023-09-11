@@ -6,6 +6,10 @@
 package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.AlumnoData;
+import Universidadejemplo.Entidades.Alumno;
+import java.sql.Date;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,13 +18,14 @@ import Universidadejemplo.AccesoADatos.AlumnoData;
 public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     AlumnoData alumnoD;
+
     /**
      * Creates new form GestionAlumnos
      */
     public GestionAlumnos() {
         initComponents();
         this.alumnoD = new AlumnoData();
-        
+
     }
 
     /**
@@ -76,6 +81,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         jLApellido.setText("Apellido:");
 
+        jTextFieldApellido.setEditable(false);
         jTextFieldApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldApellidoActionPerformed(evt);
@@ -84,6 +90,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         jLNombre.setText("Nombre:");
 
+        jTextFieldNombre.setEditable(false);
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -233,21 +240,35 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButtonEstadoActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here:
-        alumnoD.buscarAlumnoPorDni(Integer.parseInt(jLDocumento.getText()));
+        try {
+            int dni = Integer.parseInt(jTextFieldDni.getText());
+            Alumno alumno = alumnoD.buscarAlumnoPorDni(dni);
+
+            jTextFieldApellido.setText(alumno.getApellido());
+            jTextFieldNombre.setText(alumno.getNombre());
+
+            if (alumno.getEstado()) {
+                jRadioButtonEstado.setSelected(true);
+            }
+            
+            jDateFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Formato de DNI inválido.");
+        }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        // TODO add your handling code here:
+        //Función para limpiar los campos y permitir la modificaion de los campos 
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:
-        alumnoD.eliminarAlumnoPorId(Integer.parseInt(jLDocumento.getText()));
+       
+        
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
+       
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
 
