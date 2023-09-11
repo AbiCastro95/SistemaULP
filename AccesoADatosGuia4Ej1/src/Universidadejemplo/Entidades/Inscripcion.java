@@ -1,31 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Universidadejemplo.Entidades;
 
-/**
- *
- * @author Glori
- */
 public class Inscripcion {
     private int idInscripto;
-    private int nota;
+    private double nota;
     private Alumno alumno;
     private Materia materia;
 
     public Inscripcion() {
     }
 
-    public Inscripcion(int idInscripto, int nota, Alumno alumno, Materia materia) {
+    public Inscripcion(int idInscripto, double nota, Alumno alumno, Materia materia) {
         this.idInscripto = idInscripto;
         this.nota = nota;
         this.alumno = alumno;
         this.materia = materia;
     }
 
-    public Inscripcion(int nota, Alumno alumno, Materia materia) {
+    public Inscripcion(double nota, Alumno alumno, Materia materia) {
         this.nota = nota;
         this.alumno = alumno;
         this.materia = materia;
@@ -39,11 +31,11 @@ public class Inscripcion {
         this.idInscripto = idInscripto;
     }
 
-    public int getNota() {
+    public double getNota() {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 
