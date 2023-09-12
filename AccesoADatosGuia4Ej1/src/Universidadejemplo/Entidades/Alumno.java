@@ -31,12 +31,12 @@ public class Alumno {
     public Alumno() {
     }
 
-    public int getIdAllumno() {
+    public int getIdAlumno() {
         return idAlumno;
     }
 
-    public void setIdAlumno(int idAllumno) {
-        this.idAlumno = idAllumno;
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
     }
 
     public int getDni() {

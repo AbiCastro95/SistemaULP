@@ -138,7 +138,7 @@ public class AlumnoData {
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
-            ps.setInt(5, alumno.getIdAllumno());
+            ps.setInt(5, alumno.getIdAlumno());
             int registroFilas = ps.executeUpdate();
 
             if (registroFilas == 1) {
