@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Universidadejemplo.Entidades;
 
-/**
- *
- * @author Glori
- */
 public class Materia {
+
     private int idMateria;
     private String nombre;
     private int año;
@@ -62,12 +54,10 @@ public class Materia {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
     @Override
     public String toString() {
-        return "Materia{" + "idMateria=" + idMateria + ", nombre=" + nombre + "año=" + año + ", estado=" + estado  +'}';
+        return "Materia{" + "idMateria=" + idMateria + ", nombre=" + nombre + "año=" + año + ", estado=" + estado + '}';
     }
-    
-    
+
 }
-
-

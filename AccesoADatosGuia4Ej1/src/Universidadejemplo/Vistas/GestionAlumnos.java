@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.AlumnoData;
@@ -11,10 +6,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Abigail Castro
- */
 public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     AlumnoData alumnoD;
@@ -250,7 +241,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             if (alumno.getEstado()) {
                 jRadioButtonEstado.setSelected(true);
             }
-            
+
             jDateFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Formato de DNI inválido.");
@@ -262,12 +253,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-       
-        
+
+
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-       
+
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

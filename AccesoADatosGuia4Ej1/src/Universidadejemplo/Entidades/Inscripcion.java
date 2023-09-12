@@ -1,7 +1,7 @@
-
 package Universidadejemplo.Entidades;
 
 public class Inscripcion {
+
     private int idInscripto;
     private double nota;
     private Alumno alumno;
@@ -54,9 +54,10 @@ public class Inscripcion {
     public void setMateria(Materia materia) {
         this.materia = materia;
     }
+
     @Override
     public String toString() {
-        return "Inscripto{" + "idInscripto=" + idInscripto + ", nota=" + nota + ", Alumno=" + alumno + ", Materia=" + materia +'}';
+        return "Inscripto{" + "idInscripto=" + idInscripto + ", nota=" + nota + ", Alumno=" + alumno + ", Materia=" + materia + '}';
     }
-    
+
 }
