@@ -73,6 +73,11 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenuAdministracion.setText("Administración");
 
         jMenuItemAdmInscripcion.setText("Manejo de Inscripciones");
+        jMenuItemAdmInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAdmInscripcionActionPerformed(evt);
+            }
+        });
         jMenuAdministracion.add(jMenuItemAdmInscripcion);
 
         jMenuItemAdmNotas.setText("Manipulación de Notas");
@@ -119,6 +124,16 @@ public class PrincipalView extends javax.swing.JFrame {
     private void jMenuItemFormMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFormMatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemFormMatActionPerformed
+
+    private void jMenuItemAdmInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmInscripcionActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GestionInscripciones gestionInscripciones = new GestionInscripciones();
+        gestionInscripciones.setVisible(true);
+        jDesktopPane1.add(gestionInscripciones);
+        jDesktopPane1.moveToFront(gestionInscripciones);
+    }//GEN-LAST:event_jMenuItemAdmInscripcionActionPerformed
 
     /**
      * @param args the command line arguments
