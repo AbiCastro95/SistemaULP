@@ -185,6 +185,7 @@
     <Component class="javax.swing.JTextField" name="jTextFieldApellido">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldApellidoActionPerformed"/>
@@ -198,6 +199,7 @@
     <Component class="javax.swing.JTextField" name="jTextFieldNombre">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNombreActionPerformed"/>
@@ -209,6 +211,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonEstado">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonEstadoActionPerformed"/>
       </Events>
@@ -243,6 +248,9 @@
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jDateFechaNac">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

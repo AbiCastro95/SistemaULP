@@ -4,6 +4,7 @@ import Universidadejemplo.AccesoADatos.AlumnoData;
 import Universidadejemplo.Entidades.Alumno;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 
 public class GestionAlumnos extends javax.swing.JInternalFrame {
@@ -73,6 +74,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jLApellido.setText("Apellido:");
 
         jTextFieldApellido.setEditable(false);
+        jTextFieldApellido.setEnabled(false);
         jTextFieldApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldApellidoActionPerformed(evt);
@@ -82,6 +84,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jLNombre.setText("Nombre:");
 
         jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setEnabled(false);
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -90,6 +93,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         jLEstado.setText("Estado:");
 
+        jRadioButtonEstado.setEnabled(false);
         jRadioButtonEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonEstadoActionPerformed(evt);
@@ -118,6 +122,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
+
+        jDateFechaNac.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -234,7 +240,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         try {
             int dni = Integer.parseInt(jTextFieldDni.getText());
             Alumno alumno = alumnoD.buscarAlumnoPorDni(dni);
-
+            /*
             jTextFieldApellido.setText(alumno.getApellido());
             jTextFieldNombre.setText(alumno.getNombre());
 
@@ -243,6 +249,26 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             }
 
             jDateFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
+             */
+            jTextFieldApellido.setEnabled(true);
+            jTextFieldApellido.setEditable(true);
+            jTextFieldNombre.setEnabled(true);
+            jTextFieldNombre.setEditable(true);
+            jDateFechaNac.setEnabled(true);
+            if (alumno != null) {
+                jTextFieldApellido.setText(alumno.getApellido());
+                jTextFieldNombre.setText(alumno.getNombre());
+                jRadioButtonEstado.setEnabled(false);
+                jDateFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
+                if (alumno.getEstado()) {
+                    jRadioButtonEstado.setSelected(true);
+                }
+            } else {
+                jTextFieldApellido.setText("");
+                jTextFieldNombre.setText("");
+                jRadioButtonEstado.setEnabled(true);
+                jDateFechaNac.setDate(null);
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Formato de DNI inválido.");
         }
@@ -253,12 +279,20 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-
-
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        int dni = Integer.valueOf(jTextFieldDni.getText());
+        String apellido = jTextFieldApellido.getText();
+        String nombre = jTextFieldNombre.getText();
+        boolean estado = jRadioButtonEstado.isSelected();
+        //Convertir la fecha a LocalDate
+        java.util.Date date = jDateFechaNac.getDate();
+        LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
+        Alumno alumno = new Alumno(dni, apellido, nombre, fechaNacimiento, estado);
+        System.out.println(alumno);
+        alumnoD.guardarAlumno(alumno);
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
