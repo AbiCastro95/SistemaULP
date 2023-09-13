@@ -5,7 +5,7 @@
     <Component class="javax.swing.ButtonGroup" name="buttonGroup">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.ButtonGroup()"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup.add(botonInsciptas);&#xa;buttonGroup.add(botonNoInscriptas);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup.add(jRButtonInsciptas);&#xa;buttonGroup.add(jRButtonNoInscriptas);"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
@@ -46,21 +46,21 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jScrollPane1" alignment="1" min="-2" pref="335" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="botonInsciptas" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRButtonInsciptas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="botonNoInscriptas" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRButtonNoInscriptas" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabelSel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="comboBoxAlumnos" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jComboBoxAlumnos" min="-2" pref="160" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
                           <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="botonInscribir" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonInscribir" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="botonAnularInscripcion" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonAnularInscripcion" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -79,21 +79,21 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelSel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboBoxAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBoxAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botonInsciptas" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botonNoInscriptas" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jRButtonInsciptas" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jRButtonNoInscriptas" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botonAnularInscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botonInscribir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonAnularInscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonInscribir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
           </Group>
@@ -121,24 +121,27 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboBoxAlumnos">
+    <Component class="javax.swing.JComboBox" name="jComboBoxAlumnos">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxAlumnosItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Alumno&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>
-    <Component class="javax.swing.JRadioButton" name="botonInsciptas">
+    <Component class="javax.swing.JRadioButton" name="jRButtonInsciptas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Materias Inscriptas"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="botonNoInscriptas">
+    <Component class="javax.swing.JRadioButton" name="jRButtonNoInscriptas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Materias no Inscriptas"/>
       </Properties>
@@ -150,7 +153,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tablaInscripciones">
+        <Component class="javax.swing.JTable" name="jTableInscripciones">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
@@ -194,20 +197,20 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="botonInscribir">
+    <Component class="javax.swing.JButton" name="jButtonInscribir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Inscribir"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonInscribirActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInscribirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botonAnularInscripcion">
+    <Component class="javax.swing.JButton" name="jButtonAnularInscripcion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Anular Inscripci&#xf3;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAnularInscripcionActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAnularInscripcionActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
