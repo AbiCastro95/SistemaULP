@@ -30,13 +30,17 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
-        jLabelInscripciones = new javax.swing.JLabel();
+        tituloInscripciones = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabelSel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboBoxAlumnos = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
         botonInsciptas = new javax.swing.JRadioButton();
         botonNoInscriptas = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaInscripciones = new javax.swing.JTable();
+        botonInscribir = new javax.swing.JButton();
+        botonAnularInscripcion = new javax.swing.JButton();
 
         buttonGroup.add(botonInsciptas);
         buttonGroup.add(botonNoInscriptas);
@@ -46,11 +50,11 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(400, 450));
 
-        jLabelInscripciones.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabelInscripciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelInscripciones.setText("INSCRIPCIONES");
-        jLabelInscripciones.setFocusable(false);
-        jLabelInscripciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tituloInscripciones.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tituloInscripciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloInscripciones.setText("INSCRIPCIONES");
+        tituloInscripciones.setFocusable(false);
+        tituloInscripciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabelSel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelSel.setText("Seleccione un alumno");
@@ -60,62 +64,113 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
 
         botonNoInscriptas.setText("Materias no Inscriptas");
 
+        tablaInscripciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaInscripciones.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jScrollPane1.setViewportView(tablaInscripciones);
+
+        botonInscribir.setText("Inscribir");
+        botonInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInscribirActionPerformed(evt);
+            }
+        });
+
+        botonAnularInscripcion.setText("Anular Inscripción");
+        botonAnularInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAnularInscripcionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabelInscripciones)
+                        .addComponent(tituloInscripciones)
                         .addGap(127, 127, 127))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(botonInsciptas)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botonNoInscriptas))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabelSel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(comboBoxAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonInscribir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonAnularInscripcion)))
                         .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabelInscripciones)
+                .addComponent(tituloInscripciones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSel)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonInsciptas)
                     .addComponent(botonNoInscriptas))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAnularInscripcion)
+                    .addComponent(botonInscribir))
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInscribirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonInscribirActionPerformed
+
+    private void botonAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnularInscripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAnularInscripcionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAnularInscripcion;
     private javax.swing.JRadioButton botonInsciptas;
+    private javax.swing.JButton botonInscribir;
     private javax.swing.JRadioButton botonNoInscriptas;
     private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JComboBox<Alumno> jComboBox1;
-    private javax.swing.JLabel jLabelInscripciones;
+    private javax.swing.JComboBox<Alumno> comboBoxAlumnos;
     private javax.swing.JLabel jLabelSel;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable tablaInscripciones;
+    private javax.swing.JLabel tituloInscripciones;
     // End of variables declaration//GEN-END:variables
 }
