@@ -1,3 +1,5 @@
 *.properties
 nbproject/
 *.xml
+*.properties
+*.xml
