@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -28,26 +26,33 @@ public class InscripcionData {
     }
 
     public void guardarInscripcion(Inscripcion inscripcion) {
+        
         sql = "INSERT INTO inscripcion (nota, idAlumno, idMateria) VALUES ( ?, ?, ?)";
+        
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setDouble(1, inscripcion.getNota());
             ps.setInt(2, inscripcion.getAlumno().getIdAlumno());
             ps.setInt(3, inscripcion.getMateria().getIdMateria());
+            
             ps.executeUpdate();
+            
             rs = ps.getGeneratedKeys();
+            
             if (rs.next()){
                 inscripcion.setIdInscripto(rs.getInt("idInscripto"));
                 JOptionPane.showMessageDialog(null, "Inscripción realizada con éxito. ");
             }else{
                 JOptionPane.showMessageDialog(null, "No se ha encontrado la materia. ");
             }
+            
             ps.close();
+                
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se ha podido acceder a la tabla inscripción. ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción. ");
         }
     }
-
+    /* 
     public List<Inscripcion> obtenerInscripciones() {
         List<Inscripcion> inscripciones = new ArrayList<>();
         
@@ -74,6 +79,41 @@ public class InscripcionData {
         
         return inscripciones;
     }
+    
+    */
+    public List<Inscripcion> obtenerInscripciones() {
+        List<Inscripcion> inscripciones = new ArrayList<>();
+        
+        sql = "SELECT * FROM inscripcion";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            
+            rs = ps.executeQuery();
+            
+            while (rs.next()){
+                Inscripcion inscripcion = new Inscripcion();
+                
+                inscripcion.setIdInscripto(rs.getInt("idInscripto"));
+                inscripcion.setNota(rs.getDouble("nota"));
+                
+                Alumno alumno = aluData.buscarAlumnoPorId(rs.getInt("idAlumno"));
+                Materia materia = matData.buscarMateriaPorId(rs.getInt("idMateria"));
+                
+                inscripcion.setAlumno(alumno);
+                inscripcion.setMateria(materia);
+                inscripciones.add(inscripcion);
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción. ");
+        }
+        
+        return inscripciones;
+    }
+    
 
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
         return null;
