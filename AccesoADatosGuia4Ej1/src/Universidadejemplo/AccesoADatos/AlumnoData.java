@@ -49,7 +49,7 @@ public class AlumnoData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. "+ex.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public class AlumnoData {
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. "+ex.getMessage());
         }
         
         return alumno;
@@ -113,7 +113,7 @@ public class AlumnoData {
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. "+ex.getMessage());
         }
         
         return alumno;
@@ -147,7 +147,7 @@ public class AlumnoData {
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. "+ex.getMessage());
         }
         
         return alumnos;
@@ -176,7 +176,7 @@ public class AlumnoData {
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. "+ex.getMessage());
         }
     }
 
@@ -197,7 +197,7 @@ public class AlumnoData {
             ps.close();
             
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. ");
+           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. "+ex.getMessage());
         }
     }
 
