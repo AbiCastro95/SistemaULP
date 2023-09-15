@@ -1,7 +1,7 @@
 package Universidadejemplo.Vistas;
 
-import Universidadejemplo.AccesoADatos.AlumnoData;
-import Universidadejemplo.Entidades.Alumno;
+import Universidadejemplo.AccesoADatos.*;
+import Universidadejemplo.Entidades.*;
 import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Abigail Castro
  */
 public class GestionInscripciones extends javax.swing.JInternalFrame {
+
+    InscripcionData iData = new InscripcionData();
+    AlumnoData alumnoData = new AlumnoData();
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -72,6 +75,11 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
         jComboBoxAlumnos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxAlumnosItemStateChanged(evt);
+            }
+        });
+        jComboBoxAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxAlumnosActionPerformed(evt);
             }
         });
 
@@ -175,7 +183,13 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
 
     private void jComboBoxAlumnosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosItemStateChanged
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jComboBoxAlumnosItemStateChanged
+
+    private void jComboBoxAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_jComboBoxAlumnosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -193,15 +207,13 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel tituloInscripciones;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarCombo(){
-        AlumnoData alumnoData = new AlumnoData();
-        List<Alumno> listaAlumnos = alumnoData.listarAlumnos();
-        
-        for (Alumno alumno : listaAlumnos) {
+    private void cargarCombo() {
+        for (Alumno alumno : alumnoData.listarAlumnos())
+        {
             jComboBoxAlumnos.addItem(alumno);
         }
     }
-    
+
     private void cabeceraTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
@@ -212,7 +224,7 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) jTableInscripciones.getTableHeader().getDefaultRenderer();
         headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
-    
+
     private void eliminarFilas() {
         int filas = jTableInscripciones.getRowCount() - 1; //al ser un indice le resto 1
         //Como ya iniciamos la variable contadora no la incluimos en el for.

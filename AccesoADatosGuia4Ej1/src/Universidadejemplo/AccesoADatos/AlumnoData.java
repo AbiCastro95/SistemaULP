@@ -55,8 +55,8 @@ public class AlumnoData {
 
     public Alumno buscarAlumnoPorId(int id) {
         Alumno alumno = null;
-        
-        sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno = ? AND estado = 1";
+        //Para que muestre Todos sin importar el estado
+        sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno = ?";
 
         try {
             ps = con.prepareStatement(sql);

@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -42,7 +40,8 @@ public class InscripcionData {
             rs = ps.getGeneratedKeys();
             
             if (rs.next()){
-                inscripcion.setIdInscripto(rs.getInt("idInscripto"));
+                //rs.getInt("idInscripto") Con el String no estaba funcionando, lo cambiamos al Index de la columna.
+                inscripcion.setIdInscripto(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Inscripción realizada con éxito. ");
             }else{
                 JOptionPane.showMessageDialog(null, "No se ha encontrado la materia. ");
@@ -91,7 +90,10 @@ public class InscripcionData {
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
         List<Inscripcion> inscripciones = new ArrayList<>();
         
-        sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
+        //sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
+        //Para que muestre solo un alumno y  sus inscripciones
+        sql = "SELECT idInscripto, nota, i.idAlumno, idMateria FROM inscripcion i, alumno a "
+                + "WHERE i.idAlumno = ? AND (i.idAlumno = a.idAlumno AND a.estado = 1)";
         
         try {
             ps = con.prepareStatement(sql);
