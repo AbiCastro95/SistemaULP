@@ -141,6 +141,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Materias Inscriptas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRButtonInsciptasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRButtonNoInscriptas">
       <Properties>
@@ -195,12 +198,16 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableInscripcionesMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="jButtonInscribir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Inscribir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInscribirActionPerformed"/>
@@ -209,6 +216,7 @@
     <Component class="javax.swing.JButton" name="jButtonAnularInscripcion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Anular Inscripci&#xf3;n"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAnularInscripcionActionPerformed"/>
