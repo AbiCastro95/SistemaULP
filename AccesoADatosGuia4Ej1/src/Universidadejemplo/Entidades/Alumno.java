@@ -81,6 +81,9 @@ public class Alumno {
 
     @Override
     public String toString() {
+        if (dni == 0) {
+            return "Seleccionar Alumno";
+        }
         return dni + ", " + apellido + ", " + nombre;
     }
 

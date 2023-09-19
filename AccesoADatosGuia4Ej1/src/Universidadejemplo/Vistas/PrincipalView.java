@@ -81,6 +81,11 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenuAdministracion.add(jMenuItemAdmInscripcion);
 
         jMenuItemAdmNotas.setText("Manipulación de Notas");
+        jMenuItemAdmNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAdmNotasActionPerformed(evt);
+            }
+        });
         jMenuAdministracion.add(jMenuItemAdmNotas);
 
         jMenuBar1.add(jMenuAdministracion);
@@ -134,6 +139,16 @@ public class PrincipalView extends javax.swing.JFrame {
         jDesktopPane1.add(gestionInscripciones);
         jDesktopPane1.moveToFront(gestionInscripciones);
     }//GEN-LAST:event_jMenuItemAdmInscripcionActionPerformed
+
+    private void jMenuItemAdmNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmNotasActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GestionNotas gestionNotas = new GestionNotas();
+        gestionNotas.setVisible(true);
+        jDesktopPane1.add(gestionNotas);
+        jDesktopPane1.moveToFront(gestionNotas);
+    }//GEN-LAST:event_jMenuItemAdmNotasActionPerformed
 
     /**
      * @param args the command line arguments
