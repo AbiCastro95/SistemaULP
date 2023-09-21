@@ -60,7 +60,7 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
         buttonGroup.add(jRButtonNoInscriptas);
 
         setClosable(true);
-        setTitle("Manejo de Inscripciones ");
+        setTitle("Gestión de Inscripciones ");
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(400, 450));
 

@@ -41,13 +41,16 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jLEstado = new javax.swing.JLabel();
         jRadioButtonEstado = new javax.swing.JRadioButton();
         jLFechaNacimiento = new javax.swing.JLabel();
-        jButtonNuevo = new javax.swing.JButton();
+        jButtonLimpiar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jDateFechaNac = new com.toedter.calendar.JDateChooser();
+        jButtonModificar = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Gestor Alumnos");
+        setTitle("Gestión de Alumnos");
+        setPreferredSize(new java.awt.Dimension(400, 450));
+        setVisible(true);
 
         jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -102,14 +105,16 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         jLFechaNacimiento.setText("Fecha de Nacimiento:");
 
-        jButtonNuevo.setText("Nuevo");
-        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.setPreferredSize(new java.awt.Dimension(73, 32));
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNuevoActionPerformed(evt);
+                jButtonLimpiarActionPerformed(evt);
             }
         });
 
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
@@ -117,6 +122,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         });
 
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
@@ -125,58 +131,66 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         jDateFechaNac.setEnabled(false);
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.setEnabled(false);
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLNombre)
-                                            .addGap(46, 46, 46))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLEstado)
-                                            .addGap(52, 52, 52)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jRadioButtonEstado)
-                                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLApellido)
-                                        .addComponent(jLDocumento))
-                                    .addGap(26, 26, 26)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextFieldDni, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldApellido))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonBuscar)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLFechaNacimiento)
                         .addGap(37, 37, 37)
-                        .addComponent(jDateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26))
+                        .addComponent(jDateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLNombre)
+                                                .addGap(46, 46, 46))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLEstado)
+                                                .addGap(52, 52, 52)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jRadioButtonEstado)
+                                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLApellido)
+                                            .addComponent(jLDocumento))
+                                        .addGap(26, 26, 26)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jTextFieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonBuscar))
+                            .addComponent(jSeparator1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonGuardar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonModificar)))
+                        .addGap(32, 32, 32))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jButtonNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonGuardar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(jLAlumno)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(164, 164, 164)
+                .addComponent(jLAlumno)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,17 +218,15 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(jLEstado))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLFechaNacimiento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonNuevo)
-                            .addComponent(jButtonEliminar)
-                            .addComponent(jButtonGuardar))
-                        .addGap(24, 24, 24))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jDateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jLFechaNacimiento)
+                    .addComponent(jDateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEliminar)
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButtonModificar))
+                .addContainerGap())
         );
 
         pack();
@@ -240,46 +252,45 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         try {
             int dni = Integer.parseInt(jTextFieldDni.getText());
             Alumno alumno = alumnoD.buscarAlumnoPorDni(dni);
-            /*
-            jTextFieldApellido.setText(alumno.getApellido());
-            jTextFieldNombre.setText(alumno.getNombre());
-
-            if (alumno.getEstado()) {
-                jRadioButtonEstado.setSelected(true);
-            }
-
-            jDateFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
-             */
+            //Habilito los campos para la modificación o  agregación
             jTextFieldApellido.setEnabled(true);
             jTextFieldApellido.setEditable(true);
             jTextFieldNombre.setEnabled(true);
             jTextFieldNombre.setEditable(true);
             jDateFechaNac.setEnabled(true);
+
             if (alumno != null) {
+                //Si encuentro un estudiante: relleno los campos con sus datos
                 jTextFieldApellido.setText(alumno.getApellido());
                 jTextFieldNombre.setText(alumno.getNombre());
-                jRadioButtonEstado.setEnabled(false);
                 jDateFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
+                //Habilito el botón para modificar
+                jButtonModificar.setEnabled(true);
+                //Según el estado del alumno
                 if (alumno.getEstado()) {
-                    jRadioButtonEstado.setSelected(true);
+                    //Si es 1 o true: Habilito para eliminar
+                    jRadioButtonEstado.setEnabled(false);
+                    jRadioButtonEstado.setSelected(alumno.getEstado());
+                    jButtonEliminar.setEnabled(alumno.getEstado());
+                } else {
+                    jRadioButtonEstado.setEnabled(true);
+                    jRadioButtonEstado.setSelected(alumno.getEstado());
+                    jButtonEliminar.setEnabled(alumno.getEstado());
                 }
             } else {
-                jTextFieldApellido.setText("");
-                jTextFieldNombre.setText("");
-                jRadioButtonEstado.setEnabled(true);
-                jDateFechaNac.setDate(null);
+                jButtonGuardar.setEnabled(true);
+                limpiarCampos();
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Formato de DNI inválido.");
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        //Función para limpiar los campos y permitir la modificaion de los campos 
-    }//GEN-LAST:event_jButtonNuevoActionPerformed
-
-    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
+    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
+        //Función para limpiar los campos y permitir la modificacion de los campos 
+        jTextFieldDni.setText("");
+        limpiarCampos();
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         int dni = Integer.valueOf(jTextFieldDni.getText());
@@ -296,12 +307,41 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+        int dni = Integer.parseInt(jTextFieldDni.getText());
+        Alumno alumno = alumnoD.buscarAlumnoPorDni(dni);
+        int id = alumno.getIdAlumno();
+        alumnoD.eliminarAlumnoPorId(id);
+        if (!alumno.getEstado()) {
+            jRadioButtonEstado.setSelected(false);
+            jButtonEliminar.setEnabled(false);
+        }
+        jRadioButtonEstado.setEnabled(isIcon);
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        int dni = Integer.valueOf(jTextFieldDni.getText());
+        int id = ((Alumno) alumnoD.buscarAlumnoPorDni(dni)).getIdAlumno();
+        String apellido = jTextFieldApellido.getText();
+        String nombre = jTextFieldNombre.getText();
+        boolean estado = jRadioButtonEstado.isSelected();
+        //Convertir la fecha a LocalDate
+        java.util.Date date = jDateFechaNac.getDate();
+        LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        Alumno alumno = new Alumno(id, dni, apellido, nombre, fechaNacimiento, estado);
+        alumnoD.modificarAlumno(alumno);
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JButton jButtonModificar;
     private com.toedter.calendar.JDateChooser jDateFechaNac;
     private javax.swing.JLabel jLAlumno;
     private javax.swing.JLabel jLApellido;
@@ -315,4 +355,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldDni;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        jTextFieldApellido.setText("");
+        jTextFieldNombre.setText("");
+        jRadioButtonEstado.setEnabled(true);
+        jRadioButtonEstado.setSelected(false);
+        jDateFechaNac.setDate(null);
+    }
 }

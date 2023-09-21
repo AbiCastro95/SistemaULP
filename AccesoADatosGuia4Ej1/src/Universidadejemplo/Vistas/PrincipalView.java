@@ -128,6 +128,12 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void jMenuItemFormMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFormMatActionPerformed
         // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GestionMaterias gestionMaterias = new GestionMaterias();
+        gestionMaterias.setVisible(true);
+        jDesktopPane1.add(gestionMaterias);
+        jDesktopPane1.moveToFront(gestionMaterias);
     }//GEN-LAST:event_jMenuItemFormMatActionPerformed
 
     private void jMenuItemAdmInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmInscripcionActionPerformed

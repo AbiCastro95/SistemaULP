@@ -56,7 +56,7 @@ public class AlumnoData {
     public Alumno buscarAlumnoPorId(int id) {
         Alumno alumno = null;
         //Para que muestre Todos sin importar el estado
-        sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno = ?";
+        sql = "SELECT dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE idAlumno = ?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -72,7 +72,7 @@ public class AlumnoData {
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado(true);
+                alumno.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el alumno.");
             }
@@ -89,7 +89,7 @@ public class AlumnoData {
     public Alumno buscarAlumnoPorDni(int dni) {
         Alumno alumno = null;
         
-        sql = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento FROM alumno WHERE dni = ? AND estado = 1";
+        sql = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE dni = ?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -105,7 +105,7 @@ public class AlumnoData {
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado(true);
+                alumno.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el alumno.");
             }
@@ -155,7 +155,7 @@ public class AlumnoData {
 
     public void modificarAlumno(Alumno alumno) {
         
-        sql = "UPDATE alumno SET dni = ?, apellido = ?, nombre = ?, fechaNacimiento = ? WHERE idAlumno = ?";
+        sql = "UPDATE alumno SET dni = ?, apellido = ?, nombre = ?, fechaNacimiento = ?, estado = ? WHERE idAlumno = ?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -163,7 +163,8 @@ public class AlumnoData {
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
-            ps.setInt(5, alumno.getIdAlumno());
+            ps.setBoolean(5, alumno.getEstado());
+            ps.setInt(6, alumno.getIdAlumno());
             
             int registroFilas = ps.executeUpdate();
 

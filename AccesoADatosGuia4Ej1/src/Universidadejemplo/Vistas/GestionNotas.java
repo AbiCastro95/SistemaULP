@@ -3,10 +3,7 @@ package Universidadejemplo.Vistas;
 import Universidadejemplo.AccesoADatos.*;
 import Universidadejemplo.Entidades.*;
 import javax.swing.SwingConstants;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 public class GestionNotas extends javax.swing.JInternalFrame {
 
@@ -23,7 +20,14 @@ public class GestionNotas extends javax.swing.JInternalFrame {
                 return false;
             }
         }
-
+        //Para que guarde el dato como Double
+        @Override
+        public Class<?> getColumnClass(int c) {
+            if (c == 2) {
+                return Double.class;
+            }
+            return Object.class;
+        }
     };
 
     /**
@@ -54,7 +58,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
         jTableInscripciones = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("Carga de notas");
+        setTitle("Gestión de notas");
         setMinimumSize(new java.awt.Dimension(77, 22));
         setPreferredSize(new java.awt.Dimension(400, 450));
 
@@ -150,8 +154,6 @@ public class GestionNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxAlumnosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosItemStateChanged
-        // TODO add your handling code here:
-
         if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
             int id = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
             eliminarFilas();
@@ -182,20 +184,19 @@ public class GestionNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxAlumnosItemStateChanged
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
         int fila = jTableInscripciones.getSelectedRow();
-        
+
         int idAlumno = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
         int idMateria = (Integer) jTableInscripciones.getValueAt(fila, 0);
-        String notaS = (String) jTableInscripciones.getValueAt(fila, 2);
-        double nota = Double.parseDouble(notaS);
+        double nota = (Double) jTableInscripciones.getValueAt(fila, 2);
         System.out.println(idAlumno + " " + idMateria + " " + nota);
+
         iData.actualizarNota(idAlumno, idMateria, nota);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jTableInscripcionesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableInscripcionesPropertyChange
         // Solo cuando se esté editando la tabla lo va a habilitar
-        if(jTableInscripciones.isEditing()){
+        if (jTableInscripciones.isEditing()) {
             jButtonGuardar.setEnabled(true);
         }
     }//GEN-LAST:event_jTableInscripcionesPropertyChange
@@ -226,8 +227,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
             jComboBoxAlumnos.addItem(alumno);
         }
     }
- */
-
+     */
     private void cabeceraTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
