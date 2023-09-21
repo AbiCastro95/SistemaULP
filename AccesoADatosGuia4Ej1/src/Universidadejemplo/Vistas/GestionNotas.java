@@ -3,6 +3,8 @@ package Universidadejemplo.Vistas;
 import Universidadejemplo.AccesoADatos.*;
 import Universidadejemplo.Entidades.*;
 import javax.swing.SwingConstants;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +23,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
                 return false;
             }
         }
+
     };
 
     /**
@@ -88,9 +91,9 @@ public class GestionNotas extends javax.swing.JInternalFrame {
             }
         ));
         jTableInscripciones.setSelectionBackground(new java.awt.Color(0, 153, 153));
-        jTableInscripciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableInscripcionesMouseClicked(evt);
+        jTableInscripciones.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTableInscripcionesPropertyChange(evt);
             }
         });
         jScrollPane1.setViewportView(jTableInscripciones);
@@ -160,9 +163,8 @@ public class GestionNotas extends javax.swing.JInternalFrame {
                     i.getNota()
                 });
             }
-
+            jButtonGuardar.setEnabled(false);
         }
-
         /*if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
         int id = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
             if (jComboBoxAlumnos.getSelectedIndex() == 0) {
@@ -177,19 +179,26 @@ public class GestionNotas extends javax.swing.JInternalFrame {
                 });
             }
         }*/
-        System.out.println(jComboBoxAlumnos.getSelectedItem());
-
     }//GEN-LAST:event_jComboBoxAlumnosItemStateChanged
-
-    private void jTableInscripcionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableInscripcionesMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jTableInscripcionesMouseClicked
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
-
+        int fila = jTableInscripciones.getSelectedRow();
+        
+        int idAlumno = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
+        int idMateria = (Integer) jTableInscripciones.getValueAt(fila, 0);
+        String notaS = (String) jTableInscripciones.getValueAt(fila, 2);
+        double nota = Double.parseDouble(notaS);
+        System.out.println(idAlumno + " " + idMateria + " " + nota);
+        iData.actualizarNota(idAlumno, idMateria, nota);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jTableInscripcionesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableInscripcionesPropertyChange
+        // Solo cuando se esté editando la tabla lo va a habilitar
+        if(jTableInscripciones.isEditing()){
+            jButtonGuardar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTableInscripcionesPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -217,7 +226,8 @@ public class GestionNotas extends javax.swing.JInternalFrame {
             jComboBoxAlumnos.addItem(alumno);
         }
     }
-     */
+ */
+
     private void cabeceraTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
