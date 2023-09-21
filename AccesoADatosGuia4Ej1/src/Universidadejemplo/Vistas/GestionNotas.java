@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.*;
@@ -11,10 +6,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Abigail Castro
- */
 public class GestionNotas extends javax.swing.JInternalFrame {
 
     InscripcionData iData = new InscripcionData();
@@ -157,12 +148,26 @@ public class GestionNotas extends javax.swing.JInternalFrame {
 
     private void jComboBoxAlumnosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosItemStateChanged
         // TODO add your handling code here:
-        int id = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
-        
+
         if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
-            if (jComboBoxAlumnos.getSelectedIndex()== 0) {
-            comboFinal();
+            int id = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
+            eliminarFilas();
+
+            for (Inscripcion i : iData.obtenerInscripcionesPorAlumno(id)) {
+                modelo.addRow(new Object[]{
+                    i.getIdMateria(),
+                    i.getMateria().getNombre(),
+                    i.getNota()
+                });
+            }
+
         }
+
+        /*if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
+        int id = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
+            if (jComboBoxAlumnos.getSelectedIndex() == 0) {
+                comboFinal();
+            }
             eliminarFilas();
             for (Inscripcion i : iData.obtenerInscripcionesPorAlumno(id)) {
                 modelo.addRow(new Object[]{
@@ -171,8 +176,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
                     i.getNota()
                 });
             }
-        }
-        
+        }*/
         System.out.println(jComboBoxAlumnos.getSelectedItem());
 
     }//GEN-LAST:event_jComboBoxAlumnosItemStateChanged
@@ -205,14 +209,15 @@ public class GestionNotas extends javax.swing.JInternalFrame {
             jComboBoxAlumnos.addItem(alumno);
         }
     }
-    
-    private void comboFinal(){
+
+    /*
+    private void comboFinal() {
         jComboBoxAlumnos.removeAllItems();
         for (Alumno alumno : aData.listarAlumnos()) {
             jComboBoxAlumnos.addItem(alumno);
         }
     }
-
+     */
     private void cabeceraTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
