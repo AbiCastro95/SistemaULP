@@ -194,9 +194,10 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
         int idMateria = (Integer) jTableInscripciones.getValueAt(jTableInscripciones.getSelectedRow(), 0);
         Materia materia = mData.buscarMateriaPorId(idMateria);
 
-        iData.guardarInscripcion(new Inscripcion(nota, alumno, materia));
-
-        modelo.removeRow(jTableInscripciones.getSelectedRow());
+        if (materia.isEstado()) {
+            iData.guardarInscripcion(new Inscripcion(nota, alumno, materia));
+            modelo.removeRow(jTableInscripciones.getSelectedRow());
+        }
     }//GEN-LAST:event_jButtonInscribirActionPerformed
 
     private void jButtonAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnularInscripcionActionPerformed
