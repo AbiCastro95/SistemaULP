@@ -278,8 +278,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                     jButtonEliminar.setEnabled(alumno.getEstado());
                 }
             } else {
-                jButtonGuardar.setEnabled(true);
                 limpiarCampos();
+                jButtonGuardar.setEnabled(true);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Formato de DNI inválido.");
@@ -305,6 +305,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         System.out.println(alumno);
         alumnoD.guardarAlumno(alumno);
 
+        jTextFieldDni.setText("");
+        limpiarCampos();
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -313,11 +316,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         Alumno alumno = alumnoD.buscarAlumnoPorDni(dni);
         int id = alumno.getIdAlumno();
         alumnoD.eliminarAlumnoPorId(id);
-        if (!alumno.getEstado()) {
-            jRadioButtonEstado.setSelected(false);
-            jButtonEliminar.setEnabled(false);
-        }
-        jRadioButtonEstado.setEnabled(isIcon);
+        
+        jTextFieldDni.setText("");
+        limpiarCampos();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
@@ -333,6 +334,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         Alumno alumno = new Alumno(id, dni, apellido, nombre, fechaNacimiento, estado);
         alumnoD.modificarAlumno(alumno);
+        
+        jTextFieldDni.setText("");
+        limpiarCampos();
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
 
@@ -362,5 +366,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jRadioButtonEstado.setEnabled(true);
         jRadioButtonEstado.setSelected(false);
         jDateFechaNac.setDate(null);
+        
+        jButtonEliminar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonModificar.setEnabled(false);
     }
 }

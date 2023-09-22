@@ -49,7 +49,7 @@ public class AlumnoData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno. "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al guardar alumno. " + ex.getMessage());
         }
     }
 
