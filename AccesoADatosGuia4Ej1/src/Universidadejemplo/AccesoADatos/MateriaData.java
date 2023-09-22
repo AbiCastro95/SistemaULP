@@ -54,7 +54,7 @@ public class MateriaData {
         
         Materia materia = null;
         
-        sql = "SELECT nombre, año FROM materia WHERE idMateria = ? AND estado = 1";
+        sql = "SELECT nombre, año, estado FROM materia WHERE idMateria = ?";
         
         try {
             ps = con.prepareStatement(sql);
@@ -68,7 +68,7 @@ public class MateriaData {
                 materia.setIdMateria(id);
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAño(rs.getInt("año"));
-                materia.setEstado(true);
+                materia.setEstado(rs.getBoolean("estado"));
             }else{
                 JOptionPane.showMessageDialog(null, "No existe la materia. ");
             }
@@ -84,13 +84,14 @@ public class MateriaData {
 
     public void modificarMateria(Materia materia) {
         
-        sql = "UPDATE materia SET nombre = ?, año = ? WHERE idMateria = ?";
+        sql = "UPDATE materia SET nombre = ?, año = ?, estado = ? WHERE idMateria = ?";
         
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, materia.getNombre());
             ps.setInt(2, materia.getAño());
-            ps.setInt(3, materia.getIdMateria());
+            ps.setBoolean(3, materia.isEstado());
+            ps.setInt(4, materia.getIdMateria());
             
             int registroFilas = ps.executeUpdate();
             

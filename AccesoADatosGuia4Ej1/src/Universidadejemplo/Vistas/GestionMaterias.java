@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 public class GestionMaterias extends javax.swing.JInternalFrame {
 
     MateriaData materiaD;
-    
+
     /**
      * Creates new form GestionMaterias
      */
@@ -36,7 +36,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         jTextFieldAño = new javax.swing.JTextField();
         jLEstado = new javax.swing.JLabel();
         jRadioButtonEstado = new javax.swing.JRadioButton();
-        jButtonNuevo = new javax.swing.JButton();
+        jButtonLimpiar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
 
@@ -95,10 +95,10 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonNuevo.setText("Nuevo");
-        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNuevoActionPerformed(evt);
+                jButtonLimpiarActionPerformed(evt);
             }
         });
 
@@ -128,40 +128,38 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLId)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146)
+                        .addComponent(jButtonBuscar)
+                        .addGap(32, 32, 32))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLId)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(128, 128, 128))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLAño)
                                     .addComponent(jLNombre)
                                     .addComponent(jLEstado))
                                 .addGap(23, 23, 23)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNombre)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButtonEstado)
-                                            .addComponent(jTextFieldAño, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonBuscar)
-                        .addGap(32, 32, 32))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13))))
+                                    .addComponent(jRadioButtonEstado)
+                                    .addComponent(jTextFieldAño, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonLimpiar)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButtonEliminar)
+                                .addGap(34, 34, 34)
+                                .addComponent(jButtonGuardar)
+                                .addGap(25, 25, 25)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jButtonNuevo)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonEliminar)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonGuardar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(107, 107, 107)
+                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +187,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
                     .addComponent(jLEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonNuevo)
+                    .addComponent(jButtonLimpiar)
                     .addComponent(jButtonEliminar)
                     .addComponent(jButtonGuardar))
                 .addGap(24, 24, 24))
@@ -202,40 +200,72 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonEstadoActionPerformed
 
-    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        
-    }//GEN-LAST:event_jButtonNuevoActionPerformed
+    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
+        limpiarCampos();
+        jTextFieldId.setText("");
+        jButtonGuardar.setEnabled(false);
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
-       
+
     }//GEN-LAST:event_jTextFieldIdActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        
+
+        //Al usar el botón para dos funciones tenemos que hacer la diferenciación
+        int id = Integer.parseInt(jTextFieldId.getText());
+        Materia materia = materiaD.buscarMateriaPorId(id);
+        if (materia != null) {
+            String textNombre = jTextFieldNombre.getText();
+            int textAño = Integer.parseInt(jTextFieldAño.getText());
+            boolean estado = jRadioButtonEstado.isSelected();
+            if (!materia.getNombre().equalsIgnoreCase(textNombre) || materia.getAño() != textAño || materia.isEstado() != estado) {
+                materiaD.modificarMateria(new Materia(id, textNombre, textAño, estado));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existen modificaciones a guardar.");
+            }
+        } else {
+            String nombre = jTextFieldNombre.getText();
+            int año = Integer.parseInt(jTextFieldAño.getText());
+            boolean estado = jRadioButtonEstado.isSelected();
+
+            materiaD.guardarMateria(new Materia(nombre, año, estado));
+        }
+
+        limpiarCampos();
+        jTextFieldId.setText("");
+        jButtonGuardar.setEnabled(false);
+        jRadioButtonEstado.setEnabled(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         try {
             int id = Integer.parseInt(jTextFieldId.getText());
-            Materia  materia = materiaD.buscarMateriaPorId(id);
-            
+            Materia materia = materiaD.buscarMateriaPorId(id);
+
             jTextFieldNombre.setEnabled(true);
             jTextFieldNombre.setEditable(true);
-            
+
             jTextFieldAño.setEnabled(true);
             jTextFieldAño.setEditable(true);
-            
+
+            jButtonGuardar.setEnabled(true);
+
             if (materia != null) {
                 jTextFieldNombre.setText(materia.getNombre());
                 jTextFieldAño.setText("" + materia.getAño());
-                jRadioButtonEstado.setEnabled(false);
+
                 if (materia.isEstado()) {
-                    jRadioButtonEstado.setSelected(true);
+                    jRadioButtonEstado.setEnabled(false);
+                    jRadioButtonEstado.setSelected(materia.isEstado());
+                    jButtonEliminar.setEnabled(materia.isEstado());
+                } else {
+                    jRadioButtonEstado.setEnabled(true);
+                    jRadioButtonEstado.setSelected(materia.isEstado());
+                    jButtonEliminar.setEnabled(materia.isEstado());
                 }
             } else {
-                jTextFieldNombre.setText("");
-                jTextFieldAño.setText("");
-                jRadioButtonEstado.setEnabled(true);    
+                limpiarCampos();
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Formato de ID inválido. " + ex.getMessage());
@@ -243,7 +273,13 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        int id = Integer.parseInt(jTextFieldId.getText());
+        materiaD.eliminarMateria(id);
 
+        limpiarCampos();
+        jTextFieldId.setText("");
+        jButtonGuardar.setEnabled(false);
+        jRadioButtonEstado.setEnabled(false);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
@@ -259,7 +295,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JLabel jLAlumno;
     private javax.swing.JLabel jLAño;
     private javax.swing.JLabel jLEstado;
@@ -271,4 +307,15 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        jTextFieldNombre.setText("");
+        jTextFieldNombre.setEnabled(false);
+        jTextFieldAño.setText("");
+        jTextFieldAño.setEnabled(false);
+        jRadioButtonEstado.setEnabled(true);
+        jRadioButtonEstado.setSelected(false);
+
+        jButtonEliminar.setEnabled(false);
+    }
 }
