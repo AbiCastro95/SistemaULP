@@ -2,6 +2,8 @@ package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.*;
 import Universidadejemplo.Entidades.*;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.*;
 
@@ -20,6 +22,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
                 return false;
             }
         }
+
         //Para que guarde el dato como Double
         @Override
         public Class<?> getColumnClass(int c) {
@@ -184,14 +187,31 @@ public class GestionNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxAlumnosItemStateChanged
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        int fila = jTableInscripciones.getSelectedRow();
+        int filas = jTableInscripciones.getRowCount();
+        for (int f = 0; f < filas; f++) {
+            int idAlumno = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
+            int idMateria = (Integer) jTableInscripciones.getValueAt(f, 0);
+            double nota = (Double) jTableInscripciones.getValueAt(f, 2);
+            //Variable booleana para realizar un seguimiento de si hay una actualización pendiente
+            boolean actualizacionPendiente = false;
 
-        int idAlumno = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
-        int idMateria = (Integer) jTableInscripciones.getValueAt(fila, 0);
-        double nota = (Double) jTableInscripciones.getValueAt(fila, 2);
-        System.out.println(idAlumno + " " + idMateria + " " + nota);
-
-        iData.actualizarNota(idAlumno, idMateria, nota);
+            List<Inscripcion> inscripciones = iData.obtenerInscripcionesPorAlumno(idAlumno);
+            for (Inscripcion i : inscripciones) {
+                //Verifica si ma materia es la misma y si la nota es diferente
+                if (i.getIdMateria() == idMateria && i.getNota() != nota) {
+                    //Si no hay una actualización pendiente la registra y actualiza.
+                    if (!actualizacionPendiente) {
+                        actualizacionPendiente = true;
+                        System.out.println("actualizado: " + idAlumno + " " + idMateria + " " + nota);
+                        iData.actualizarNota(idAlumno, idMateria, nota);
+                    }
+                }
+            }
+            //Si hay una actualización pendiente notifica que no hay modificaciones
+            if (!actualizacionPendiente) {
+                JOptionPane.showMessageDialog(null, "No hay modificaciones.");
+            }
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jTableInscripcionesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableInscripcionesPropertyChange
