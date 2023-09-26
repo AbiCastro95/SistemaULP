@@ -1,5 +1,7 @@
 package Universidadejemplo.Vistas;
 
+import javax.swing.JOptionPane;
+
 public class PrincipalView extends javax.swing.JFrame {
 
     /**
@@ -93,11 +95,21 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenuConsultas.setText("Consultas");
 
         jMenuItemAlumnoPorMat.setText("Alumnos por Materia");
+        jMenuItemAlumnoPorMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAlumnoPorMatActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItemAlumnoPorMat);
 
         jMenuBar1.add(jMenuConsultas);
 
         jMenuSalir.setText("Salir");
+        jMenuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuSalirMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -155,6 +167,24 @@ public class PrincipalView extends javax.swing.JFrame {
         jDesktopPane1.add(gestionNotas);
         jDesktopPane1.moveToFront(gestionNotas);
     }//GEN-LAST:event_jMenuItemAdmNotasActionPerformed
+
+    private void jMenuItemAlumnoPorMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlumnoPorMatActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GestionAlumnosMateria gestionAlumnoMateria = new GestionAlumnosMateria();
+        gestionAlumnoMateria.setVisible(true);
+        jDesktopPane1.add(gestionAlumnoMateria);
+        jDesktopPane1.moveToFront(gestionAlumnoMateria);
+    }//GEN-LAST:event_jMenuItemAlumnoPorMatActionPerformed
+
+    private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
+        // TODO add your handling code here:
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea cerrar la aplicación? ", "Salir ", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jMenuSalirMouseClicked
 
     /**
      * @param args the command line arguments

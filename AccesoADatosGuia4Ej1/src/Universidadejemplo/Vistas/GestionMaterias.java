@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 public class GestionMaterias extends javax.swing.JInternalFrame {
 
     MateriaData materiaD;
+    Materia materia;
+    
 
     /**
      * Creates new form GestionMaterias
@@ -14,6 +16,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     public GestionMaterias() {
         initComponents();
         this.materiaD = new MateriaData();
+        this.materia = new Materia();
     }
 
     /**
@@ -222,35 +225,43 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldIdActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        try {
+            //Al usar el botón para dos funciones tenemos que hacer la diferenciación
+            int id = Integer.parseInt(jTextFieldId.getText());
 
-        //Al usar el botón para dos funciones tenemos que hacer la diferenciación
-        int id = Integer.parseInt(jTextFieldId.getText());
-        Materia materia = materiaD.buscarMateriaPorId(id);
-        
-        if (materia != null) {
-            String textNombre = jTextFieldNombre.getText();
-            int textAño = Integer.parseInt(jTextFieldAño.getText());
-            boolean estado = jRadioButtonEstado.isSelected();
-            if (!materia.getNombre().equalsIgnoreCase(textNombre) || materia.getAño() != textAño || materia.isEstado() != estado) {
-                materiaD.modificarMateria(new Materia(id, textNombre, textAño, estado));
-            }else{
-                JOptionPane.showMessageDialog(null, "No existen modificaciones a guardar.");
+            if (materia != null) {
+                String textNombre = jTextFieldNombre.getText();
+                int textAño = Integer.parseInt(jTextFieldAño.getText());
+                
+                if (jTextFieldNombre.getText().isEmpty() || jTextFieldAño.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "No pueden haber campos vacios. ");
+                    return;
+                }
+                boolean estado = jRadioButtonEstado.isSelected();
+                if (!materia.getNombre().equalsIgnoreCase(textNombre) || materia.getAño() != textAño || materia.isEstado() != estado) {
+                    materiaD.modificarMateria(new Materia(id, textNombre, textAño, estado));
+                }else{
+                    JOptionPane.showMessageDialog(this, "No existen modificaciones a guardar.");
+                }
+            } else {
+                String nombre = jTextFieldNombre.getText();
+                int año = Integer.parseInt(jTextFieldAño.getText());
+                boolean estado = jRadioButtonEstado.isSelected();
+
+                materiaD.guardarMateria(new Materia(nombre, año, estado));
             }
-        } else {
-            String nombre = jTextFieldNombre.getText();
-            int año = Integer.parseInt(jTextFieldAño.getText());
-            boolean estado = jRadioButtonEstado.isSelected();
 
-            materiaD.guardarMateria(new Materia(nombre, año, estado));
+            jButtonLimpiarActionPerformed(evt);
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Los datos ingresados no son correctos. ");
         }
-
-        jButtonLimpiarActionPerformed(evt);
+        
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         try {
             int id = Integer.parseInt(jTextFieldId.getText());
-            Materia materia = materiaD.buscarMateriaPorId(id);
+            materia = materiaD.buscarMateriaPorId(id);
 
             jTextFieldNombre.setEnabled(true);
             jTextFieldNombre.setEditable(true);
@@ -273,17 +284,21 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
                     jRadioButtonEstado.setSelected(materia.isEstado());
                     jButtonEliminar.setEnabled(materia.isEstado());
                 }
+            }else{
+                jRadioButtonEstado.setEnabled(true);
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Formato de ID inválido. ");
+            JOptionPane.showMessageDialog(this, "Formato de ID inválido. ");
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int id = Integer.parseInt(jTextFieldId.getText());
-        materiaD.eliminarMateria(id);
-
-        jButtonLimpiarActionPerformed(evt);
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿ Desea eliminar la materia "+materia.getNombre()+" "+materia.getAño()+" ? ", "Eliminar materia ", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            materiaD.eliminarMateria(id);
+            jButtonLimpiarActionPerformed(evt);
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed

@@ -209,7 +209,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
             }
             //Si hay una actualización pendiente notifica que no hay modificaciones
             if (!actualizacionPendiente) {
-                JOptionPane.showMessageDialog(null, "No hay modificaciones.");
+                JOptionPane.showMessageDialog(this, "No hay modificaciones.");
             }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed

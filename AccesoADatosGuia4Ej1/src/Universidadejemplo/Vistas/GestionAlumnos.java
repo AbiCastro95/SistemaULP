@@ -282,7 +282,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 jRadioButtonEstado.setEnabled(true);
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Formato de DNI inválido.");
+            JOptionPane.showMessageDialog(this, "Formato de DNI inválido.");
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
@@ -317,7 +317,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             
             if (!verificarString(apellido) || !verificarString(nombre)){
-                JOptionPane.showMessageDialog(null, "Nombre o Apellido invalido. ");
+                JOptionPane.showMessageDialog(this, "Nombre o Apellido invalido. ");
                 return;
             }
             Alumno alumno = new Alumno(dni, apellido, nombre, fechaNacimiento, estado);
@@ -339,9 +339,11 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         int dni = Integer.parseInt(jTextFieldDni.getText());
         Alumno alumno = alumnoD.buscarAlumnoPorDni(dni);
         int id = alumno.getIdAlumno();
-        alumnoD.eliminarAlumnoPorId(id);
-        
-        jButtonLimpiarActionPerformed(evt);
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿ Desea eliminar el alumno " + alumno.getApellido() + " " + alumno.getNombre() + " ? ", "Eliminar alumno ", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            alumnoD.eliminarAlumnoPorId(id);
+            jButtonLimpiarActionPerformed(evt);
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
@@ -361,9 +363,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
             jButtonLimpiarActionPerformed(evt);
         }catch(NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Formato de fecha invalido. ");
+            JOptionPane.showMessageDialog(this, "Formato de fecha invalido. ");
         }catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "DNI invalido. ");
+            JOptionPane.showMessageDialog(this, "DNI invalido. ");
         }
         
     }//GEN-LAST:event_jButtonModificarActionPerformed

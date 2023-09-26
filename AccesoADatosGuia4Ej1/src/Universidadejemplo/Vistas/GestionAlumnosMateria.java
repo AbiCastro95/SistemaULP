@@ -1,6 +1,7 @@
 package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.*;
+import Universidadejemplo.Entidades.Alumno;
 import Universidadejemplo.Entidades.Materia;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -8,8 +9,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class GestionAlumnosMateria extends javax.swing.JInternalFrame {
 
-    InscripcionData iData = new InscripcionData();
-    MateriaData mData = new MateriaData();
+    InscripcionData iData;
+    MateriaData mData;
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -22,8 +23,11 @@ public class GestionAlumnosMateria extends javax.swing.JInternalFrame {
          */
         public GestionAlumnosMateria() {
             initComponents();
+            this.iData = new InscripcionData();
+            this.mData = new MateriaData();
             cargarCombo();
             cabeceraTabla();
+            
         }
 
         /**
@@ -42,6 +46,7 @@ public class GestionAlumnosMateria extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMaterias = new javax.swing.JTable();
 
+        setClosable(true);
         setTitle("Consultas por Materia");
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(400, 400));
@@ -115,8 +120,19 @@ public class GestionAlumnosMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxMateriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxMateriaItemStateChanged
+         if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
+            int idMat = ((Materia)jComboBoxMateria.getSelectedItem()).getIdMateria();
+            eliminarFilas();
 
-
+            for (Alumno i : iData.obtenerAlumnosPorMateria(idMat)) {
+                modelo.addRow(new Object[]{
+                    i.getIdAlumno(),
+                    i.getDni(),
+                    i.getApellido(),
+                    i.getNombre()
+                });
+            }
+        }
     }//GEN-LAST:event_jComboBoxMateriaItemStateChanged
 
 
@@ -150,5 +166,14 @@ public class GestionAlumnosMateria extends javax.swing.JInternalFrame {
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
             jTableMaterias.setDefaultRenderer(Object.class, centerRenderer);
+        }
+        
+        private void eliminarFilas() {
+            int filas = jTableMaterias.getRowCount() - 1; //al ser un indice le resto 1
+            //Como ya iniciamos la variable contadora no la incluimos en el for.
+            for (; filas >= 0; filas--) {
+                modelo.removeRow(filas);
+            }
+
         }
     }
