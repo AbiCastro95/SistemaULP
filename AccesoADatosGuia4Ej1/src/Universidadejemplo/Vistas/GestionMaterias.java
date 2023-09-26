@@ -103,6 +103,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         });
 
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
@@ -110,6 +111,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         });
 
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
@@ -201,9 +203,18 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButtonEstadoActionPerformed
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        limpiarCampos();
+
         jTextFieldId.setText("");
+        jTextFieldId.setEditable(true);
+        jTextFieldNombre.setText("");
+        jTextFieldNombre.setEnabled(false);
+        jTextFieldAño.setText("");
+        jTextFieldAño.setEnabled(false);
+        jRadioButtonEstado.setEnabled(false);
+        jRadioButtonEstado.setSelected(false);
+        
         jButtonGuardar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
@@ -215,6 +226,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         //Al usar el botón para dos funciones tenemos que hacer la diferenciación
         int id = Integer.parseInt(jTextFieldId.getText());
         Materia materia = materiaD.buscarMateriaPorId(id);
+        
         if (materia != null) {
             String textNombre = jTextFieldNombre.getText();
             int textAño = Integer.parseInt(jTextFieldAño.getText());
@@ -232,10 +244,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
             materiaD.guardarMateria(new Materia(nombre, año, estado));
         }
 
-        limpiarCampos();
-        jTextFieldId.setText("");
-        jButtonGuardar.setEnabled(false);
-        jRadioButtonEstado.setEnabled(false);
+        jButtonLimpiarActionPerformed(evt);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -250,7 +259,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
             jTextFieldAño.setEditable(true);
 
             jButtonGuardar.setEnabled(true);
-
+            jTextFieldId.setEditable(false);
             if (materia != null) {
                 jTextFieldNombre.setText(materia.getNombre());
                 jTextFieldAño.setText("" + materia.getAño());
@@ -264,11 +273,9 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
                     jRadioButtonEstado.setSelected(materia.isEstado());
                     jButtonEliminar.setEnabled(materia.isEstado());
                 }
-            } else {
-                limpiarCampos();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Formato de ID inválido. " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Formato de ID inválido. ");
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
@@ -276,10 +283,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         int id = Integer.parseInt(jTextFieldId.getText());
         materiaD.eliminarMateria(id);
 
-        limpiarCampos();
-        jTextFieldId.setText("");
-        jButtonGuardar.setEnabled(false);
-        jRadioButtonEstado.setEnabled(false);
+        jButtonLimpiarActionPerformed(evt);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
@@ -308,14 +312,4 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
-    private void limpiarCampos() {
-        jTextFieldNombre.setText("");
-        jTextFieldNombre.setEnabled(false);
-        jTextFieldAño.setText("");
-        jTextFieldAño.setEnabled(false);
-        jRadioButtonEstado.setEnabled(true);
-        jRadioButtonEstado.setSelected(false);
-
-        jButtonEliminar.setEnabled(false);
-    }
 }

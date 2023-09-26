@@ -2,6 +2,7 @@ package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.AlumnoData;
 import Universidadejemplo.Entidades.Alumno;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -106,7 +107,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jLFechaNacimiento.setText("Fecha de Nacimiento:");
 
         jButtonLimpiar.setText("Limpiar");
-        jButtonLimpiar.setPreferredSize(new java.awt.Dimension(73, 32));
         jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLimpiarActionPerformed(evt);
@@ -179,7 +179,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                             .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonLimpiar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonEliminar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -222,7 +222,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(jDateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonLimpiar)
                     .addComponent(jButtonEliminar)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButtonModificar))
@@ -258,7 +258,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             jTextFieldNombre.setEnabled(true);
             jTextFieldNombre.setEditable(true);
             jDateFechaNac.setEnabled(true);
-
+            jTextFieldDni.setEditable(false);
             if (alumno != null) {
                 //Si encuentro un estudiante: relleno los campos con sus datos
                 jTextFieldApellido.setText(alumno.getApellido());
@@ -278,8 +278,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                     jButtonEliminar.setEnabled(alumno.getEstado());
                 }
             } else {
-                limpiarCampos();
                 jButtonGuardar.setEnabled(true);
+                jRadioButtonEstado.setEnabled(true);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Formato de DNI inválido.");
@@ -289,25 +289,49 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         //Función para limpiar los campos y permitir la modificacion de los campos 
         jTextFieldDni.setText("");
-        limpiarCampos();
+        jTextFieldDni.setEditable(true);  
+        jTextFieldApellido.setText("");
+        jTextFieldApellido.setEnabled(false); 
+        jTextFieldNombre.setText("");
+        jTextFieldNombre.setEnabled(false);
+        jRadioButtonEstado.setEnabled(false);
+        jRadioButtonEstado.setSelected(false);
+        jDateFechaNac.setEnabled(false);
+        jDateFechaNac.setDate(null);
+        
+        jButtonEliminar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonModificar.setEnabled(false);
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        int dni = Integer.valueOf(jTextFieldDni.getText());
-        String apellido = jTextFieldApellido.getText();
-        String nombre = jTextFieldNombre.getText();
-        boolean estado = jRadioButtonEstado.isSelected();
-        //Convertir la fecha a LocalDate
-        java.util.Date date = jDateFechaNac.getDate();
-        LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        try {
+            int dni = Integer.valueOf(jTextFieldDni.getText());
+            String apellido = jTextFieldApellido.getText();
+            String nombre = jTextFieldNombre.getText();
+            boolean estado = jRadioButtonEstado.isSelected();
+            //Convertir la fecha a LocalDate
+            java.util.Date date = jDateFechaNac.getDate();
+            
+            LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            if (!verificarString(apellido) || !verificarString(nombre)){
+                JOptionPane.showMessageDialog(null, "Nombre o Apellido invalido. ");
+                return;
+            }
+            Alumno alumno = new Alumno(dni, apellido, nombre, fechaNacimiento, estado);
+            System.out.println(alumno);
+            alumnoD.guardarAlumno(alumno);
 
-        Alumno alumno = new Alumno(dni, apellido, nombre, fechaNacimiento, estado);
-        System.out.println(alumno);
-        alumnoD.guardarAlumno(alumno);
-
-        jTextFieldDni.setText("");
-        limpiarCampos();
-
+            jButtonLimpiarActionPerformed(evt);
+            
+        }catch(NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Formato de fecha invalido. ");
+        }catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "DNI invalido. ");
+        }
+        
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -317,26 +341,31 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         int id = alumno.getIdAlumno();
         alumnoD.eliminarAlumnoPorId(id);
         
-        jTextFieldDni.setText("");
-        limpiarCampos();
+        jButtonLimpiarActionPerformed(evt);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
-        int dni = Integer.valueOf(jTextFieldDni.getText());
-        int id = ((Alumno) alumnoD.buscarAlumnoPorDni(dni)).getIdAlumno();
-        String apellido = jTextFieldApellido.getText();
-        String nombre = jTextFieldNombre.getText();
-        boolean estado = jRadioButtonEstado.isSelected();
-        //Convertir la fecha a LocalDate
-        java.util.Date date = jDateFechaNac.getDate();
-        LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        try {
+            int dni = Integer.valueOf(jTextFieldDni.getText());
+            int id = ((Alumno) alumnoD.buscarAlumnoPorDni(dni)).getIdAlumno();
+            String apellido = jTextFieldApellido.getText();
+            String nombre = jTextFieldNombre.getText();
+            boolean estado = jRadioButtonEstado.isSelected();
+            //Convertir la fecha a LocalDate
+            java.util.Date date = jDateFechaNac.getDate();
+            LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        Alumno alumno = new Alumno(id, dni, apellido, nombre, fechaNacimiento, estado);
-        alumnoD.modificarAlumno(alumno);
+            Alumno alumno = new Alumno(id, dni, apellido, nombre, fechaNacimiento, estado);
+            alumnoD.modificarAlumno(alumno);
+
+            jButtonLimpiarActionPerformed(evt);
+        }catch(NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Formato de fecha invalido. ");
+        }catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "DNI invalido. ");
+        }
         
-        jTextFieldDni.setText("");
-        limpiarCampos();
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
 
@@ -360,15 +389,20 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
-    private void limpiarCampos() {
-        jTextFieldApellido.setText("");
-        jTextFieldNombre.setText("");
-        jRadioButtonEstado.setEnabled(true);
-        jRadioButtonEstado.setSelected(false);
-        jDateFechaNac.setDate(null);
+    
+    private boolean verificarString(String texto){
+        // Verifica que el string no este vacio
+        if (texto.isEmpty()){
+            return false;
+        }
+        // Verifica que el string no contenga numeros 
+        for (int i = 0; i < texto.length(); i++) {
+            char letra = texto.charAt(i);
+            if ((letra < 65 || letra > 90) && (letra < 97 || letra > 122)){
+                return false;
+            }
+        }
         
-        jButtonEliminar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonModificar.setEnabled(false);
+        return true;
     }
 }
