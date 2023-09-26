@@ -50,6 +50,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jMenuAlumno.setText("Alumno");
 
+        jMenuItemFormAlumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemFormAlumno.setText("Formulario de Alumno");
         jMenuItemFormAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,6 +63,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jMenuMateria.setText("Materia");
 
+        jMenuItemFormMat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemFormMat.setText("Formulario de Materia");
         jMenuItemFormMat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +76,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jMenuAdministracion.setText("Administración");
 
+        jMenuItemAdmInscripcion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAdmInscripcion.setText("Manejo de Inscripciones");
         jMenuItemAdmInscripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +85,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         jMenuAdministracion.add(jMenuItemAdmInscripcion);
 
+        jMenuItemAdmNotas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAdmNotas.setText("Manipulación de Notas");
         jMenuItemAdmNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +98,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jMenuConsultas.setText("Consultas");
 
+        jMenuItemAlumnoPorMat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAlumnoPorMat.setText("Alumnos por Materia");
         jMenuItemAlumnoPorMat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
