@@ -2,7 +2,6 @@ package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.*;
 import Universidadejemplo.Entidades.*;
-import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;

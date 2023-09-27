@@ -2,7 +2,6 @@ package Universidadejemplo.Vistas;
 
 import Universidadejemplo.AccesoADatos.AlumnoData;
 import Universidadejemplo.Entidades.Alumno;
-import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -289,23 +288,23 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         //Función para limpiar los campos y permitir la modificacion de los campos 
         jTextFieldDni.setText("");
-        jTextFieldDni.setEditable(true);  
+        jTextFieldDni.setEditable(true);
         jTextFieldApellido.setText("");
-        jTextFieldApellido.setEnabled(false); 
+        jTextFieldApellido.setEnabled(false);
         jTextFieldNombre.setText("");
         jTextFieldNombre.setEnabled(false);
         jRadioButtonEstado.setEnabled(false);
         jRadioButtonEstado.setSelected(false);
         jDateFechaNac.setEnabled(false);
         jDateFechaNac.setDate(null);
-        
+
         jButtonEliminar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonModificar.setEnabled(false);
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        
+
         try {
             int dni = Integer.valueOf(jTextFieldDni.getText());
             String apellido = jTextFieldApellido.getText();
@@ -313,10 +312,10 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             boolean estado = jRadioButtonEstado.isSelected();
             //Convertir la fecha a LocalDate
             java.util.Date date = jDateFechaNac.getDate();
-            
+
             LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            
-            if (!verificarString(apellido) || !verificarString(nombre)){
+
+            if (!verificarString(apellido) || !verificarString(nombre)) {
                 JOptionPane.showMessageDialog(this, "Nombre o Apellido invalido. ");
                 return;
             }
@@ -325,13 +324,13 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             alumnoD.guardarAlumno(alumno);
 
             jButtonLimpiarActionPerformed(evt);
-            
-        }catch(NullPointerException e) {
+
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Formato de fecha invalido. ");
-        }catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "DNI invalido. ");
         }
-        
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -350,24 +349,33 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             int dni = Integer.valueOf(jTextFieldDni.getText());
-            int id = ((Alumno) alumnoD.buscarAlumnoPorDni(dni)).getIdAlumno();
-            String apellido = jTextFieldApellido.getText();
-            String nombre = jTextFieldNombre.getText();
+            Alumno alumno = alumnoD.buscarAlumnoPorDni(dni);
+            int id = alumno.getIdAlumno();
+            String textApellido = jTextFieldApellido.getText();
+            String textNombre = jTextFieldNombre.getText();
             boolean estado = jRadioButtonEstado.isSelected();
             //Convertir la fecha a LocalDate
             java.util.Date date = jDateFechaNac.getDate();
-            LocalDate fechaNacimiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            Alumno alumno = new Alumno(id, dni, apellido, nombre, fechaNacimiento, estado);
-            alumnoD.modificarAlumno(alumno);
+            if (!verificarString(textApellido) || !verificarString(textNombre)) {
+                JOptionPane.showMessageDialog(this, "Nombre o Apellido invalido. ");
+                return;
+            }
+            //Si algo es igual tira el mensaje, sino guarda la modificación y limpia el formulario
+            if (textApellido.equalsIgnoreCase(alumno.getApellido()) || textNombre.equalsIgnoreCase(alumno.getNombre()) || estado == alumno.getEstado() || localDate.equals(alumno.getFechaNacimiento())) {
+                JOptionPane.showMessageDialog(this, "No existen modificaciones a guardar.");
+            } else {
+                alumnoD.modificarAlumno(new Alumno(id, dni, textApellido, textNombre, localDate, estado));
+                jButtonLimpiarActionPerformed(evt);
+            }
 
-            jButtonLimpiarActionPerformed(evt);
-        }catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Formato de fecha invalido. ");
-        }catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "DNI invalido. ");
         }
-        
+
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
 
@@ -391,20 +399,19 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
-    
-    private boolean verificarString(String texto){
+    private boolean verificarString(String texto) {
         // Verifica que el string no este vacio
-        if (texto.isEmpty()){
+        if (texto.isEmpty()) {
             return false;
         }
         // Verifica que el string no contenga numeros 
         for (int i = 0; i < texto.length(); i++) {
             char letra = texto.charAt(i);
-            if ((letra < 65 || letra > 90) && (letra < 97 || letra > 122)){
+            if ((letra < 65 || letra > 90) && (letra < 97 || letra > 122)) {
                 return false;
             }
         }
-        
+
         return true;
     }
 }

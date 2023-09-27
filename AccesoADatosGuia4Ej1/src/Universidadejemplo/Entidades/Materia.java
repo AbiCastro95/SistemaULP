@@ -60,7 +60,7 @@ public class Materia {
         if (nombre==null){
             return "Seleccionar materia ";
         }
-        return nombre + " " + año;
+        return nombre + ", Año: " + año;
     }
 
 }

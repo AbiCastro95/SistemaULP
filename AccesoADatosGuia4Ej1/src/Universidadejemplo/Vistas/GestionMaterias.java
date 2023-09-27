@@ -326,5 +326,4 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
-
 }

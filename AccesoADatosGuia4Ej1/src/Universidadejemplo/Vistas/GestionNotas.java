@@ -16,7 +16,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int col) {
-            if (col == 2) { //columnIndex: the column you want to make it editable
+            if (col == 2) { 
                 return true;
             } else {
                 return false;
@@ -170,20 +170,6 @@ public class GestionNotas extends javax.swing.JInternalFrame {
             }
             jButtonGuardar.setEnabled(false);
         }
-        /*if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
-        int id = ((Alumno) jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
-            if (jComboBoxAlumnos.getSelectedIndex() == 0) {
-                comboFinal();
-            }
-            eliminarFilas();
-            for (Inscripcion i : iData.obtenerInscripcionesPorAlumno(id)) {
-                modelo.addRow(new Object[]{
-                    i.getIdMateria(),
-                    i.getMateria().getNombre(),
-                    i.getNota()
-                });
-            }
-        }*/
     }//GEN-LAST:event_jComboBoxAlumnosItemStateChanged
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -197,7 +183,7 @@ public class GestionNotas extends javax.swing.JInternalFrame {
 
             List<Inscripcion> inscripciones = iData.obtenerInscripcionesPorAlumno(idAlumno);
             for (Inscripcion i : inscripciones) {
-                //Verifica si ma materia es la misma y si la nota es diferente
+                //Verifica si la materia es la misma y si la nota es diferente
                 if (i.getIdMateria() == idMateria && i.getNota() != nota) {
                     //Si no hay una actualización pendiente la registra y actualiza.
                     if (!actualizacionPendiente) {
@@ -240,14 +226,6 @@ public class GestionNotas extends javax.swing.JInternalFrame {
         }
     }
 
-    /*
-    private void comboFinal() {
-        jComboBoxAlumnos.removeAllItems();
-        for (Alumno alumno : aData.listarAlumnos()) {
-            jComboBoxAlumnos.addItem(alumno);
-        }
-    }
-     */
     private void cabeceraTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
